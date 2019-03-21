@@ -14,7 +14,7 @@ router.get("/", function (req, res) {
     var menuObj = {
       burgers: menu
     };
-    console.log(menuObj.burgers[0].dataValues.burger_name);
+    //console.log(menuObj.burgers[0].dataValues.burger_name);
     res.render("index", menuObj);
   });
 });
@@ -27,14 +27,14 @@ router.post("/api/burgers", function (req, res) {
 });
 
 router.put("/api/burgers/eat", function (req, res) {
-  console.log(req)
+  //console.log(req)
   let id = req.body.id;
   var newState = req.body.devoured
   //console.log(id + newState)
   db.burger.update({ "devoured": newState, }, { where: {"id" : id, },}).then(function (result) {
     //console.log(result);
-    res.status(200).end()
-  });
+    res.json({ id: result.insertID })
+  })
 });
 
 //       res.json(dbPost);
