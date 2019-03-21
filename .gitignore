@@ -1,3 +1,4 @@
 node_modules
 test_builds
 .env
+npm-debug.log

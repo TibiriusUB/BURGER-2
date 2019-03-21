@@ -1,29 +1,33 @@
+
 $(function () {
     $(".change-state").on("click", function (event) {
         var id = $(this).data("id");
         var newState = $(this).data("newstate");
-        console.log("HITME!")
-        var cookedState = {
-            devoured: newState
+        let bool = 1
+        if (newState === true) {
+            bool = 0
         };
-        $.ajax("/api/burgers/" + id, {
+        var cookedState = {
+            devoured: bool,
+            id: id
+        };
+        console.log(cookedState)
+        $.ajax("/api/burgers/eat", {
             type: "PUT",
             data: cookedState
         }).then(
             function () {
-                console.log("changed cooked to", cookedState);
+                console.log("changed cooked to", cookedState[1]);
                 location.reload();
             }
         );
     });
 
     $(".create-form").on("submit", function (event) {
-        console.log("am I on?")
         event.preventDefault();
         var newRecipe = {
             name: $("#recipe").val().trim(),
         };
-        console.log("am I on?")
         $.ajax("/api/burgers", {
             type: "POST",
             data: newRecipe
